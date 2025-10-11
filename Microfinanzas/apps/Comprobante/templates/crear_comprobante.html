@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Comprobante</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="card form-card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="text-center mb-0">Crear Nuevo Comprobante</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- Mensajes de error/success -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- Campo Número -->
+                    <div class="mb-3">
+                        <label for="numero" class="form-label">Número de Comprobante *</label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="numero" 
+                               name="numero" 
+                               value="{{ request.POST.numero }}"
+                               required 
+                               placeholder="Ej: 0001-00000001">
+                    </div>
+
+                    <!-- Campo Fecha -->
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label">Fecha *</label>
+                        <input type="date" 
+                               class="form-control" 
+                               id="fecha" 
+                               name="fecha" 
+                               value="{{ request.POST.fecha }}"
+                               required>
+                    </div>
+
+                    <!-- Campo Monto -->
+                    <div class="mb-3">
+                        <label for="monto" class="form-label">Monto *</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="monto" 
+                                   name="monto" 
+                                   value="{{ request.POST.monto }}"
+                                   step="0.01" 
+                                   min="0" 
+                                   required 
+                                   placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <!-- Campo Tipo de Comprobante -->
+                    <div class="mb-3">
+                        <label for="tipo" class="form-label">Tipo de Comprobante *</label>
+                        <select class="form-select" id="tipo" name="tipo" required>
+                            <option value="" disabled selected>Seleccione un tipo</option>
+                            {% for value, label in TipoComprobanteEnum.choices %}
+                                <option value="{{ value }}" {% if request.POST.tipo == value %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Campo Medio de Pago -->
+                    <div class="mb-4">
+                        <label for="medio_pago" class="form-label">Medio de Pago *</label>
+                        <select class="form-select" id="medio_pago" name="medio_pago" required>
+                            <option value="" disabled selected>Seleccione medio de pago</option>
+                            {% for value, label in MedioPagoEnum.choices %}
+                                <option value="{{ value }}" {% if request.POST.medio_pago == value %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'index' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Crear Comprobante</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

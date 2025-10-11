@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detyalle comprobantes</title>
+</head>
+<body>
+    <h1>Hola desde cdetallesssss</h1>
+    <a href="{% url 'crear_comprobante' %}">Crear Comprobante</a>
+
+    Detalle del Comprobante:
+    <ul>
+        <li>{{comprobante.tipo}}</li>
+        <li>Número: {{ comprobante.numero }}</li>
+        <li>Fecha: {{ comprobante.fecha }}</li>
+        <li>Monto: {{ comprobante.monto }}</li>
+        <li>Descripción: {{ comprobante.descripcion }}</li>
+    </ul>
+
+</body>
+</html>

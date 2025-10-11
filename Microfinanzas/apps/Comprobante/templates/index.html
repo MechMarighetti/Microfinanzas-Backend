@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hola desde comprobantes</title>
+        <style>
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+        .form-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hola desde comprobantes</h1>
+    <a href="{% url 'crear_comprobante' %}">Crear Comprobante</a>
+
+    Lista de Comprobantes:
+    <ul>
+        {% for comprobante in comprobantes %}
+            <li><a href="{% url 'detalle_comprobante' comprobante.id %}">{{comprobante.id}}</a> {{ comprobante.numero }} - {{ comprobante.fecha }} - {{ comprobante.monto }} - {{ comprobante.descripcion }}</li>
+        {% empty %}
+            <li>No hay comprobantes disponibles.</li>
+        {% endfor %}   
+    </ul>
+
+</body>
+</html>
