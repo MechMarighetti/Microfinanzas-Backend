@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
+from .views import CrearComprobanteView, DetalleComprobanteView, IndexView
 
 urlpatterns = [
-    path('home/', views.index, name='index'),
-    path('crear/', views.crear_comprobante, name='crear_comprobante'),
-    path('detalle/<int:comprobante_id>/', views.detalle_comprobante, name='detalle_comprobante'),
+    path('home/', IndexView.as_view(), name='index'),
+    path('crear/', CrearComprobanteView.as_view(), name='crear_comprobante'),
+    path('detalle/<int:comprobante_id>/', DetalleComprobanteView.as_view(), name='detalle_comprobante'),
 ]
