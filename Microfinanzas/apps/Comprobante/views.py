@@ -138,7 +138,7 @@ class DetalleComprobanteView(DetailView):
     model = Comprobante
     template_name = 'detalle_comprobante.html'
     context_object_name = 'comprobante'
-    pk_url_kwarg = 'comprobante_id'
+    pk_url_kwarg = 'comprobante_id' 
     
     def get_object(self, queryset=None):
         """Obtener el comprobante o mostrar error 404"""
