@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.http import Http404
-from emprendimiento.models import Emprendimiento
+from ..emprendimiento.models import Emprendimiento
 
 class EmprendimientoMixin:
     """Mixin para manejar la relación con el emprendimiento del usuario"""

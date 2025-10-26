@@ -1,5 +1,5 @@
 from django.db import models
-from emprendimiento.models import Emprendimiento
+from ..emprendimiento.models import Emprendimiento
 
 class Categoria(models.Model):
 
