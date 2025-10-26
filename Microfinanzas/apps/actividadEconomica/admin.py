@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Servicio, Producto, Categoria
 
-# Register your models here.
+admin.register(Servicio)
+admin.register(Categoria)
+admin.register(Producto)
