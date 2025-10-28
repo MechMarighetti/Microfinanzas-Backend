@@ -1,5 +1,5 @@
 from django.db import models
-from usuario.models import Usuario
+from apps.usuario.models import Usuario
 
 class Emprendimiento(models.Model):
     nombre = models.CharField(max_length=100)

@@ -30,25 +30,26 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-
-INSTALLED_APPS= [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+LOCAL_APPS= [
     'apps.comprobante',
     'apps.usuario',
     'apps.transaccion',
     'apps.emprendimiento',
     'apps.actividadEconomica',
     'apps.detalleIngreso',
-    
-    
-    
-    
 ]
+
+DJANGO_APPS= [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+]
+
+INSTALLED_APPS= LOCAL_APPS + DJANGO_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -110,6 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'usuario.Usuario'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
