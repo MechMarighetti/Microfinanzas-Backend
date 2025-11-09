@@ -1,5 +1,7 @@
+from datetime import date
 from django.db import models
-from ..Comprobante.models import Comprobante
+
+from ..comprobante.models import Comprobante
 from ..emprendimiento.models import Emprendimiento
 
 class Ingreso(models.Model):
@@ -23,3 +25,5 @@ class Egreso(models.Model):
 
     def __str__(self):
         return f"Fecha: {self.fecha}\nImporte: {self.importe}\nDescripción: {self.descripcion}"
+    
+

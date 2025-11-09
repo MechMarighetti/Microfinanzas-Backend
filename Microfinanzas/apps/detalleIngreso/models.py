@@ -1,4 +1,6 @@
 from django.db import models
+from ..actividadEconomica.models import Producto, Servicio
+from ..transaccion.models import Ingreso
 
 class UnidadMedida(models.Model):
     unique_id = models.AutoField(primary_key=True)
@@ -16,9 +18,9 @@ class DetalleIngreso(models.Model):
     monto = models.DecimalField(max_digits=12, decimal_places=2)
     
     
-    ingreso = models.ForeignKey('Ingreso', on_delete=models.CASCADE, null=True, blank=True)
-    servicio = models.ForeignKey('Servicio', on_delete=models.SET_NULL, null=True, blank=True)
-    producto = models.ForeignKey('Producto', on_delete=models.SET_NULL, null=True, blank=True)
+    ingreso = models.ForeignKey(Ingreso, on_delete=models.CASCADE, null=True, blank=True, related_name='ingreso')
+    servicio = models.ForeignKey(Servicio, on_delete=models.SET_NULL, null=True, blank=True, related_name='servicio')
+    producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True, blank=True, related_name='producto')
 
     def __str__(self):
         return f"Detalle Ingreso {self.unique_id} - {self.fecha}"
