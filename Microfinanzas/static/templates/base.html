@@ -20,10 +20,6 @@
 </head>
 
 <body>
-    <!-- Header -->
-    {% block nav %}
-    {% endblock %}
-
     <!-- Messages -->
     {% if messages %}
     <div class="container mt-3">
@@ -37,6 +33,10 @@
     {% endif %}
 
     <!-- Main Content -->
+     <nav>
+    {% block nav %}
+    {% endblock %}
+     </nav>
     <main>
         {% block content %}{% endblock %}
     </main>
@@ -45,42 +45,8 @@
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h5>Biblioteca de la Solidaridad</h5>
-                    <p>Promoviendo la lectura y el acceso al conocimiento para todos.</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Contacto</h5>
-                    <p>
-                        <i class="fas fa-map-marker-alt"></i> Av. Siempre Viva 123<br>
-                        <i class="fas fa-phone"></i> (011) 1234-5678<br>
-                        <i class="fas fa-envelope"></i> info@bibliotecasolidaridad.org
-                    </p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Horarios</h5>
-                    <p>
-                        Lunes a Viernes: 8:00 - 20:00<br>
-                        Sábados: 9:00 - 14:00<br>
-                        Domingos: Cerrado
-                    </p>
-                </div>
-                <div class="card-body text-center">
-                    <br>
-                    <div>
-                        <h5>📧 Suscríbete a nuestro newsletter</h5>
-                        <p>Recibe las últimas novedades de la biblioteca</p>
-                        <form method="post" action="{% url 'subscribe_newsletter' %}">
-                            {% csrf_token %}
-                            <div class="input-group mb-3">
-                                <input type="email" name="email" class="form-control" placeholder="tu.email@ejemplo.com"
-                                    required>
-                                <button class="btn btn-primary" type="submit">Suscribirse</button>
-                            </div>
-                        </form>
-                        <small class="text-muted">Puedes cancelar la suscripción en cualquier momento.</small>
-                    </div>
-                </div>
+                
+                
             </div>
 
             <br>

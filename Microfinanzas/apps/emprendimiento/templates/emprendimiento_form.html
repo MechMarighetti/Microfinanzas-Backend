@@ -11,7 +11,16 @@
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
-                        
+                            <!-- Mensajes de error/success -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
                         {% if form.non_field_errors %}
                         <div class="alert alert-danger">
                             {{ form.non_field_errors }}
@@ -20,15 +29,24 @@
                         
                         <div class="mb-3">
                             <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre del Emprendimiento</label>
-                            {{ form.nombre }}
-                            {% if form.nombre.errors %}
-                            <div class="text-danger">{{ form.nombre.errors }}</div>
-                            {% endif %}
+                        <input type="text" 
+                               class="form-control" 
+                               id="nombre" 
+                               name="nombre" 
+                               value="{{ request.POST.nombre }}"
+                               required 
+                               placeholder="Ej: RomiNails">
+                
                         </div>
                         
                         <div class="mb-3">
-                            <label for="{{ form.descripcion.id_for_label }}" class="form-label">Descripción</label>
-                            {{ form.descripcion }}
+                            <input type="textarea" 
+                               class="form-control" 
+                               id="descripcion" 
+                               name="descripcion" 
+                               value="{{ request.POST.descripcion }}"
+                               required 
+                               placeholder="Ej: Servicio Personalizado de Esmaltado Semipermanente de Uñas">
                             {% if form.descripcion.errors %}
                             <div class="text-danger">{{ form.descripcion.errors }}</div>
                             {% endif %}
