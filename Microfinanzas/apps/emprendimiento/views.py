@@ -9,10 +9,12 @@ from django.contrib import messages
 class EmprendimientoCreateView(LoginRequiredMixin, CreateView):
     model = Emprendimiento
     template_name = 'emprendimiento_form.html'
-    fields = ['nombre', 'descripcion', 'usuario']
+    fields = ['nombre', 'descripcion'] 
     success_url = reverse_lazy('emprendimiento_list')
 
     def form_valid(self, form):
+        # Asigna automáticamente el usuario logueado
+        form.instance.usuario = self.request.user
         messages.success(self.request, 'Emprendimiento creado exitosamente.')
         return super().form_valid(form)
     

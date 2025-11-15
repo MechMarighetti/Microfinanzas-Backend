@@ -9,6 +9,7 @@ Este documento será la documentacion de la app y una guia de lo que aprendimos 
 
 **Herencia de plantillas:**
 ```
+href="{% static 'css/styles.css' %}"
 {% extends 'base.html' %}
 {% block content %}
     <h1>Mi contenido</h1>

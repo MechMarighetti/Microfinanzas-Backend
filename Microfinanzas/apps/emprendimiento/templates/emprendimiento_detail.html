@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">{{ emprendimiento.nombre }}</h3>
-                    <span class="badge bg-primary">{{ emprendimiento.usuario.get_rol_display }}</span>
+                    <span class="badge bg-primary">{{ emprendimiento.usuario }}</span>
                 </div>
                 <div class="card-body">
                     <h5>Descripción</h5>
@@ -25,11 +25,7 @@
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'emprendimiento_list' %}" class="btn btn-secondary">Volver a la lista</a>
-                 <!--    {% if user.rol == 'owner' and user == emprendimiento.usuario %}
-                    <a href="{% url 'gestionar_equipo' emprendimiento.pk %}" class="btn btn-warning">
-                        Gestionar Equipo
-                    </a>
-                    {% endif %} -->
+
                 </div>
             </div>
         </div>

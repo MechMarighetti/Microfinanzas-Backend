@@ -40,10 +40,10 @@
                     <a href="{% url 'emprendimiento_detail' emprendimiento.pk %}" class="btn btn-primary btn-sm">
                         Ver Detalles
                     </a>
-                    {% if user.rol == 'owner' %}
-                    <a href="{% url 'gestionar_equipo' emprendimiento.pk %}" class="btn btn-outline-secondary btn-sm">
-                        Gestionar Equipo
-                    </a>
+                    {% if user.rol != 'owner' %}
+                <div> 
+                    Dueño: {{emprendimiento.usuario.get_full_name}}
+                </div>
                     {% endif %}
                 </div>
             </div>
