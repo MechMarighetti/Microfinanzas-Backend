@@ -24,17 +24,13 @@ class IndexView(ListView):
         context['ultimocomprobante'] = Comprobante.objects.last()
         return context
     
-""" def index(request):
-    comprobantes = Comprobante.objects.all()
-    ultimocomprobante = Comprobante.objects.last()
-    return render(request, 'index.html', {'comprobantes': comprobantes})
- """
+
 class CrearComprobanteView(View):
-    """Vista para crear nuevos comprobantes"""
+    
     
     def get(self, request):
         
-        """Muestra el formulario vacío"""
+    
         context = {
             'TipoComprobanteEnum': TipoComprobanteEnum,
             'MedioPagoEnum': MedioPagoEnum
@@ -42,7 +38,6 @@ class CrearComprobanteView(View):
         return render(request, 'crear_comprobante.html', context)
     
     def post(self, request):
-        """Procesa el formulario de creación"""
         try:
             # Obtener datos del formulario
             numero = request.POST.get('numero', '').strip()
