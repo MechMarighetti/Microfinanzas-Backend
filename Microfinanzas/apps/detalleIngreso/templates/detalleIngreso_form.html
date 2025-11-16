@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-plus-circle me-2"></i>{{ titulo }}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <div class="row">
+                            <!-- Campo Fecha -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.fecha.id_for_label }}" class="form-label">
+                                    <strong>Fecha *</strong>
+                                </label>
+                                {{ form.fecha|add_class:"form-control" }}
+                                {% if form.fecha.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.fecha.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Campo Unidad de Medida -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.unidad_medida.id_for_label }}" class="form-label">
+                                    <strong>Unidad de Medida *</strong>
+                                </label>
+                                {{ form.unidad_medida|add_class:"form-control" }}
+                                {% if form.unidad_medida.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.unidad_medida.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Campo Cantidad -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.cantidad.id_for_label }}" class="form-label">
+                                    <strong>Cantidad *</strong>
+                                </label>
+                                {{ form.cantidad|add_class:"form-control" }}
+                                {% if form.cantidad.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.cantidad.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Campo Monto -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.monto.id_for_label }}" class="form-label">
+                                    <strong>Monto *</strong>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    {{ form.monto|add_class:"form-control" }}
+                                </div>
+                                {% if form.monto.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.monto.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Campo Actividad Económica -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.actividadEconomica.id_for_label }}" class="form-label">
+                                    <strong>Actividad Económica</strong>
+                                </label>
+                                {{ form.actividadEconomica|add_class:"form-control" }}
+                                {% if form.actividadEconomica.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.actividadEconomica.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Campo Transacción -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.transaccion.id_for_label }}" class="form-label">
+                                    <strong>Transacción</strong>
+                                </label>
+                                {{ form.transaccion|add_class:"form-control" }}
+                                {% if form.transaccion.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.transaccion.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Botones de acción -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'detalle_ingreso_list' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-1"></i>Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i>Guardar Detalle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Validación en tiempo real
+    document.addEventListener('DOMContentLoaded', function() {
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            });
+        });
+
+        // Formatear montos automáticamente
+        const montoInput = document.getElementById('{{ form.monto.id_for_label }}');
+        if (montoInput) {
+            montoInput.addEventListener('blur', function() {
+                const value = parseFloat(this.value);
+                if (!isNaN(value)) {
+                    this.value = value.toFixed(2);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

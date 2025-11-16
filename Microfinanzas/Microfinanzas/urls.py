@@ -24,4 +24,6 @@ urlpatterns = [
     path('comercial/', include('apps.actividadEconomica.urls')),
     path('', include('apps.emprendimiento.urls')),
     path('usuario/', include('apps.usuario.urls')),
-    path('trx/', include('apps.transaccion.urls'))]
+    path('trx/', include('apps.transaccion.urls')),
+     path('detalleIngreso/', include('apps.detalleIngreso.urls'))
+    ,]

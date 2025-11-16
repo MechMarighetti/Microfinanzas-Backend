@@ -2,28 +2,41 @@ from django.db import models
 from ..actividadEconomica.models import Producto, Servicio
 from ..transaccion.models import Ingreso
 
-class UnidadMedida(models.Model):
-    unique_id = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=50)
+class UnidadMedidaEnum(models.TextChoices):
+    UNIDAD = "UNI", "Unidad"
+    KILOGRAMO = "KG", "Kilogramo"
+    LITRO = "LT", "Litro"
+    METRO = "M", "Metro"
+    METRO_CUADRADO = "M2", "Metro cuadrado"
+    METRO_CUBICO = "M3", "Metro cúbico"
+    HORA = "HR", "Hora"
+    JUEGO = "JG", "Juego"
+    PAQUETE = "PAQ", "Paquete"
+    DOCENA = "DOC", "Docena"
+    KILOWATT = "KW", "Kilowatt"
+    TONELADA = "TN", "Tonelada"
+    PAR = "PAR", "Par"
+    CAJA = "CJ", "Caja"
+    BOBINA = "BOB", "Bobina"
 
-    def __str__(self):
-        return self.nombre
 
 
 class DetalleIngreso(models.Model):
-    unique_id = models.AutoField(primary_key=True)
     fecha = models.DateField()
-    unidad_medida = models.ForeignKey(UnidadMedida, on_delete=models.CASCADE)
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
     monto = models.DecimalField(max_digits=12, decimal_places=2)
+    unidad_medida = models.CharField(
+        max_length=4,
+        choices=UnidadMedidaEnum.choices
+    )
+ 
     
-    
-    ingreso = models.ForeignKey(Ingreso, on_delete=models.CASCADE, null=True, blank=True, related_name='ingreso')
-    servicio = models.ForeignKey(Servicio, on_delete=models.SET_NULL, null=True, blank=True, related_name='servicio')
-    producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True, blank=True, related_name='producto')
+    actividadEconomica = models.ForeignKey('Ingreso', on_delete=models.CASCADE, null=True, blank=True)
+    transaccion = models.ForeignKey('Transaccion', on_delete=models.CASCADE, null=True, blank=True)
+
 
     def __str__(self):
         return f"Detalle Ingreso {self.unique_id} - {self.fecha}"
 
 
-# Create your models here.
+
