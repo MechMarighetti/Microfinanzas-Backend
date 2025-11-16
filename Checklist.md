@@ -44,6 +44,18 @@ return render(request, 'template.html', context)
 
 ---
 
+### Prompts Útiles
+
+Crear una vista basada en clases [CreateView, ListView, etc] en Django para el modelo [Nombre del Modelo / proporcionarle la definicion del o los modelos que intervengan], junto con su template HTML. La vista debe seguir las mejores prácticas, incluyendo:
+- Requerir autenticación del usuario.
+- Personalizar el formulario para mejorar la UX (atributos HTML, placeholders, etc.).
+- Filtrar los campos ForeignKey para que solo muestren opciones relevantes para el usuario actual (si aplica).
+- Mostrar mensajes de éxito al guardar.
+- El template debe ser responsive, mostrar errores de validación y tener un diseño profesional.
+Proporciona el código de la vista y el template, utilizando Bootstrap para el diseño y django-widget-tweaks para personalizar los campos del formulario.
+
+
+
 ### Static
 
 **Configuración en settings.py:**
