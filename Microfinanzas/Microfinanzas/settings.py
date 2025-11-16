@@ -39,7 +39,9 @@ LOCAL_APPS= [
     'apps.actividadEconomica',
     'apps.detalleIngreso',
 ]
-
+THIRD_PARTY_APPS = [
+    'widget_tweaks',
+]
 DJANGO_APPS= [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,7 +52,7 @@ DJANGO_APPS= [
 
 ]
 
-INSTALLED_APPS= LOCAL_APPS + DJANGO_APPS
+INSTALLED_APPS= LOCAL_APPS + THIRD_PARTY_APPS + DJANGO_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -139,4 +141,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'  # Redirects to the homepage
 LOGOUT_REDIRECT_URL = './apps/usuario/login/'
 AUTH_USER_MODEL = 'usuario.Usuario'
-LOGIN_URL = './apps/usuario/login/'
+LOGIN_URL = './usuario/login/'
