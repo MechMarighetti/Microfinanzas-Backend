@@ -27,8 +27,7 @@ class DetalleIngreso(models.Model):
         max_length=4,
         choices=UnidadMedidaEnum.choices
     )
-
-    
+ 
     
     actividadEconomica = models.ForeignKey('Ingreso', on_delete=models.CASCADE, null=True, blank=True)
     transaccion = models.ForeignKey('Transaccion', on_delete=models.CASCADE, null=True, blank=True)
