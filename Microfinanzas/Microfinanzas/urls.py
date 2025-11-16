@@ -13,6 +13,7 @@ Class-based views
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+
 """
 from django.contrib import admin
 from django.urls import path
@@ -24,6 +25,4 @@ urlpatterns = [
     path('comercial/', include('apps.actividadEconomica.urls')),
     path('', include('apps.emprendimiento.urls')),
     path('usuario/', include('apps.usuario.urls')),
-    path('trx/', include('apps.transaccion.urls')),
-     path('detalleIngreso/', include('apps.detalleIngreso.urls'))
-    ,]
+    path('detIngresos/', include('apps.detalleIngreso.urls')) ]

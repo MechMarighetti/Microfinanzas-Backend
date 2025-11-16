@@ -1,6 +1,5 @@
 from django.db import models
 from ..actividadEconomica.models import Producto, Servicio
-from ..transaccion.models import Ingreso
 
 class UnidadMedidaEnum(models.TextChoices):
     UNIDAD = "UNI", "Unidad"
@@ -22,17 +21,16 @@ class UnidadMedidaEnum(models.TextChoices):
 
 
 class DetalleIngreso(models.Model):
-    fecha = models.DateField()
+    fecha_creacion = models.DateField()
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
-    monto = models.DecimalField(max_digits=12, decimal_places=2)
+    monto_detalle = models.DecimalField(max_digits=12, decimal_places=2)
     unidad_medida = models.CharField(
         max_length=4,
         choices=UnidadMedidaEnum.choices
     )
  
-    
-    actividadEconomica = models.ForeignKey('Ingreso', on_delete=models.CASCADE, null=True, blank=True)
-    transaccion = models.ForeignKey('Transaccion', on_delete=models.CASCADE, null=True, blank=True)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True, blank=True) 
+    servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, null=True, blank=True,)
 
 
     def __str__(self):

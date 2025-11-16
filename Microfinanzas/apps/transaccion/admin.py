@@ -1,14 +1,8 @@
 from django.contrib import admin
-from .models import Ingreso, Egreso
+from .models import Transaccion
 
-@admin.register(Ingreso)
-class IngresoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'importe', 'fecha')
-    search_fields = ('id', 'fecha', 'descripcion', 'comprobante__numero')
-    list_filter = ('id', 'fecha')
-
-@admin.register(Egreso)
-class EgresoAdmin(admin.ModelAdmin):
+@admin.register(Transaccion)
+class TransaccionAdmin(admin.ModelAdmin):
     list_display = ('id', 'importe', 'fecha')
     search_fields = ('id', 'fecha', 'descripcion', 'comprobante__numero')
     list_filter = ('id', 'fecha')

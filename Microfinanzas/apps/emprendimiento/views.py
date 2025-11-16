@@ -25,7 +25,8 @@ class EmprendimientoListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Emprendimiento.objects.filter(usuario=self.request.user).order_by('nombre')
+        return Emprendimiento.objects.all()
+        ##return Emprendimiento.objects.filter(usuario=self.request.user).order_by('nombre')
 
 class EmprendimientoDetailView(LoginRequiredMixin, DetailView):
     model = Emprendimiento

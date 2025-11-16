@@ -1,22 +1,23 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views import View
-from django.views.generic import ListView, DetailView
+from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
+
 from django.contrib import messages
 from django.db import IntegrityError
 from django.utils.decorators import method_decorator
 from .models import DetalleIngreso
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class IndexView(ListView): 
+class DetalleIngresoLista(LoginRequiredMixin,ListView): 
     model = DetalleIngreso
-    template_name = 'index.html'
+    template_name = 'detalleIngreso.html'
     context_object_name = 'detalleIngresos'
     
     def get_queryset(self):
         queryset = DetalleIngreso.objects.all()
 
         # BÚSQUEDA EXACTA
-        fecha_busqueda = self.request.GET.get("fecha")
+        fecha_busqueda = self.request.GET.get("fecha_creacion")
 
         # RANGO
         fecha_desde = self.request.GET.get("desde")
@@ -42,8 +43,16 @@ class IndexView(ListView):
         context['ultimoDetalleIngreso'] = DetalleIngreso.objects.last()
 
         # Mantener valores del formulario
-        context['fecha_busqueda'] = self.request.GET.get("fecha", "")
+        context['fecha_busqueda'] = self.request.GET.get("fecha_creacion", "")
         context['desde'] = self.request.GET.get("desde", "")
         context['hasta'] = self.request.GET.get("hasta", "")
 
         return context
+    
+class DetalleIngresoCreate(LoginRequiredMixin,CreateView):
+    model = DetalleIngreso
+    template_name = 'detalleIngreso_form.html'
+    fields = ['fecha_creacion','monto_detalle', 'descripcion', 'comprobante_id','emprendimiento_id']
+    success_url = reverse_lazy('detalleIngresoList')
+
+
