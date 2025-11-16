@@ -1,0 +1,60 @@
+
+{% load static %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'emprendimiento_list' %}">
+                <i class="fa-solid fa-money-check-dollar"></i>
+                <span class="logo">Microfinanzas</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'emprendimiento_list' %}active{% endif %}" 
+                           href="{% url 'emprendimiento_list' %}">
+                            <i class="fas fa-home"></i> Inicio
+                        </a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'emprendimiento_create' %}active{% endif %}" 
+                           href="{% url 'emprendimiento_create' %}">
+                            <i class="fas fa-plus-circle"></i> Nuevo Emprendimiento
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                
+                <!-- Menú de usuario si está autenticado -->
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown user-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Mi Perfil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Configuración</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% else %}
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <i class="fas fa-sign-in-alt me-1"></i> Iniciar Sesión
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    {%endblock%}

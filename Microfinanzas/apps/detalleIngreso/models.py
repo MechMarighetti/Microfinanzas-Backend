@@ -1,4 +1,6 @@
 from django.db import models
+from ..actividadEconomica.models import Producto, Servicio
+from ..transaccion.models import Ingreso
 
 class UnidadMedidaEnum(models.TextChoices):
     UNIDAD = "UNI", "Unidad"

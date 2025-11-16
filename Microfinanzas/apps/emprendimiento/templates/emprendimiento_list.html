@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Mis Emprendimientos</h2>
+        <a href="{% url 'emprendimiento_create' %}" class="btn btn-success">
+            <i class="fas fa-plus"></i> Nuevo Emprendimiento
+        </a>
+    </div>
+    
+    {% if messages %}
+    <div class="messages mb-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if emprendimientos %}
+    <div class="row">
+        {% for emprendimiento in emprendimientos %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ emprendimiento.nombre }}</h5>
+                    <p class="card-text text-muted">
+                        {{ emprendimiento.descripcion|truncatewords:20 }}
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Creado: {{ emprendimiento.fecha_creacion|date:"d/m/Y" }}
+                        </small>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'emprendimiento_detail' emprendimiento.pk %}" class="btn btn-primary btn-sm">
+                        Ver Detalles
+                    </a>
+                    {% if user.rol != 'owner' %}
+                <div> 
+                    Dueño: {{emprendimiento.usuario.get_full_name}}
+                </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Paginación -->
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            </li>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+            <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+    
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-building fa-3x text-muted mb-3"></i>
+        <h4 class="text-muted">No tienes emprendimientos</h4>
+        <p class="text-muted">Comienza creando tu primer emprendimiento</p>
+        <a href="{% url 'emprendimiento_create' %}" class="btn btn-primary">Crear Primer Emprendimiento</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

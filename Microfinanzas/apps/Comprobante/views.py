@@ -24,17 +24,13 @@ class IndexView(ListView):
         context['ultimocomprobante'] = Comprobante.objects.last()
         return context
     
-""" def index(request):
-    comprobantes = Comprobante.objects.all()
-    ultimocomprobante = Comprobante.objects.last()
-    return render(request, 'index.html', {'comprobantes': comprobantes})
- """
+
 class CrearComprobanteView(View):
-    """Vista para crear nuevos comprobantes"""
+    
     
     def get(self, request):
         
-        """Muestra el formulario vacío"""
+    
         context = {
             'TipoComprobanteEnum': TipoComprobanteEnum,
             'MedioPagoEnum': MedioPagoEnum
@@ -42,7 +38,6 @@ class CrearComprobanteView(View):
         return render(request, 'crear_comprobante.html', context)
     
     def post(self, request):
-        """Procesa el formulario de creación"""
         try:
             # Obtener datos del formulario
             numero = request.POST.get('numero', '').strip()
@@ -89,50 +84,7 @@ class CrearComprobanteView(View):
             'MedioPagoEnum': MedioPagoEnum
         }
         return render(self.request, 'crear_comprobante.html', context)
-    
-""" def crear_comprobante(request):
-    if request.method == 'POST':
-        try:
-            # Obtener datos del formulario
-            numero = request.POST['numero']
-            fecha = request.POST['fecha']
-            monto = request.POST['monto']
-            tipo = request.POST['tipo']
-            medio_pago = request.POST['medio_pago']
-            
-            # Validaciones básicas
-            if not all([numero, fecha, monto, tipo, medio_pago]):
-                messages.error(request, 'Todos los campos son obligatorios.')
-                return render(request, 'crear_comprobante.html', {
-                'TipoComprobanteEnum': TipoComprobanteEnum,
-                'MedioPagoEnum': MedioPagoEnum
-            })
-            
-            # Crear el comprobante usando objects.create
-            comprobante = Comprobante.objects.create(
-                numero=numero,
-                fecha=fecha,
-                monto=monto,
-                tipo=tipo,
-                medio_pago=medio_pago
-            )
-            
-            messages.success(request, f'Comprobante {comprobante.numero} creado exitosamente!')
-            return redirect('index')
-            
-        except Exception as e:
-            messages.error(request, f'Error al crear el comprobante: {str(e)}')
-            return render(request, 'crear_comprobante.html', {
-                'TipoComprobanteEnum': TipoComprobanteEnum,
-                'MedioPagoEnum': MedioPagoEnum
-            })
-    
-    # Método GET - mostrar formulario vacío
-    return render(request, 'crear_comprobante.html', {
-        'TipoComprobanteEnum': TipoComprobanteEnum,
-        'MedioPagoEnum': MedioPagoEnum
-    })
- """
+
 
 class DetalleComprobanteView(DetailView):
     model = Comprobante
@@ -150,13 +102,3 @@ class DetalleComprobanteView(DetailView):
             from django.shortcuts import redirect
             return redirect('index')
         
-""" def detalle_comprobante(request, comprobante_id):
-    try:
-        comprobante = Comprobante.objects.get(id=comprobante_id)
-        return render(request, 'detalle_comprobante.html', {'comprobante': comprobante})
-    except Comprobante.DoesNotExist:
-        messages.error(request, 'El comprobante no existe.')
-        return redirect('index')
-    except Exception as e:
-        messages.error(request, f'Error al obtener el comprobante: {str(e)}')
-        return redirect('index') """

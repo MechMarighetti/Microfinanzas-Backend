@@ -41,4 +41,3 @@ class Comprobante(models.Model):
         return f"Comprobante {self.tipo} - {self.numero} - {self.monto}"
 
 
-

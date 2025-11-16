@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
 class Usuario(AbstractUser):
     ROLES = (
       ('owner', 'Dueño'),
@@ -25,4 +26,3 @@ class Usuario(AbstractUser):
         return f"{self.username} ({self.get_role_display()})"
 
 
-# Create your models here.
