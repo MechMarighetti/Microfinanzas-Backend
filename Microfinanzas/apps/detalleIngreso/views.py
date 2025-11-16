@@ -52,7 +52,7 @@ class DetalleIngresoLista(LoginRequiredMixin,ListView):
 class DetalleIngresoCreate(LoginRequiredMixin,CreateView):
     model = DetalleIngreso
     template_name = 'detalleIngreso_form.html'
-    fields = ['fecha_creacion','monto_detalle', 'descripcion', 'comprobante_id','emprendimiento_id']
+    fields = ['fecha_creacion','monto_detalle', 'cantidad', 'unidad_medida']
     success_url = reverse_lazy('detalleIngresoList')
 
 
