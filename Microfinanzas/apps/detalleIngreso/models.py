@@ -1,17 +1,33 @@
 from django.db import models
 
-class UnidadMedida(models.Model):
-    nombre = models.CharField(max_length=50)
+class UnidadMedidaEnum(models.TextChoices):
+    UNIDAD = "UNI", "Unidad"
+    KILOGRAMO = "KG", "Kilogramo"
+    LITRO = "LT", "Litro"
+    METRO = "M", "Metro"
+    METRO_CUADRADO = "M2", "Metro cuadrado"
+    METRO_CUBICO = "M3", "Metro cúbico"
+    HORA = "HR", "Hora"
+    JUEGO = "JG", "Juego"
+    PAQUETE = "PAQ", "Paquete"
+    DOCENA = "DOC", "Docena"
+    KILOWATT = "KW", "Kilowatt"
+    TONELADA = "TN", "Tonelada"
+    PAR = "PAR", "Par"
+    CAJA = "CJ", "Caja"
+    BOBINA = "BOB", "Bobina"
 
-    def __str__(self):
-        return self.nombre
 
 
 class DetalleIngreso(models.Model):
     fecha = models.DateField()
-    unidad_medida = models.ForeignKey(UnidadMedida, on_delete=models.CASCADE, related_name='detalles_ingreso')
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
     monto = models.DecimalField(max_digits=12, decimal_places=2)
+    unidad_medida = models.CharField(
+        max_length=4,
+        choices=UnidadMedidaEnum.choices
+    )
+
     
     
     actividadEconomica = models.ForeignKey('Ingreso', on_delete=models.CASCADE, null=True, blank=True)
