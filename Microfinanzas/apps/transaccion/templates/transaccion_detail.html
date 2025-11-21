@@ -1,0 +1,107 @@
+{% extends 'base.html'%}  
+{%load static%}
+{%block title%}Detalle transaccion {{transaccion.id}}{%endblock%}
+{%block content%}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="card-title mb-0">Detalle de Transacción #{{ transaccion.id }}</h4>
+                        <a href="{% url 'transaccion_list' %}" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-arrow-left"></i> Volver
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <!-- Información básica -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>Información Principal</h6>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th width="40%">Fecha:</th>
+                                    <td>{{ transaccion.fecha|date:"d/m/Y" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Descripción:</th>
+                                    <td>{{ transaccion.descripcion }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Importe:</th>
+                                    <td>
+                                        <span class="{% if transaccion.tipoTrx == 'IN' %}text-success{% else %}text-danger{% endif %} fw-bold">
+                                            ${{ transaccion.importe }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Tipo:</th>
+                                    <td>
+                                        <span class="badge {% if transaccion.tipoTrx == 'IN' %}bg-success{% else %}bg-danger{% endif %}">
+                                            {{ transaccion.get_tipoTrx_display }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h6>Información Relacionada</h6>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th width="40%">Emprendimiento:</th>
+                                    <td>{{ transaccion.emprendimiento_id.nombre }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Comprobante:</th>
+                                    <td>
+                                        {% if transaccion.comprobante_id %}
+                                            {{ transaccion.comprobante_id.tipo }}
+                                        {% else %}
+                                            <span class="text-muted">No especificado</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Detalle:</th>
+                                    <td>
+                                        {% if transaccion.detalle_id %}
+                                            {{ transaccion.detalle_id.descripcion }}
+                                        {% else %}
+                                            <span class="text-muted">No especificado</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Resumen visual -->
+                    <div class="alert {% if transaccion.tipoTrx == 'IN' %}alert-success{% else %}alert-danger{% endif %}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="alert-heading">
+                                    {% if transaccion.tipoTrx == 'IN' %}
+                                        <i class="fas fa-arrow-down me-2"></i>Ingreso
+                                    {% else %}
+                                        <i class="fas fa-arrow-up me-2"></i>Egreso
+                                    {% endif %}
+                                </h5>
+                                <p class="mb-0">Transacción registrada el {{ transaccion.fecha|date:"d/m/Y" }}</p>
+                            </div>
+                            <div class="text-end">
+                                <h4 class="mb-0">${{ transaccion.importe }}</h4>
+                                <small>{{ transaccion.descripcion }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

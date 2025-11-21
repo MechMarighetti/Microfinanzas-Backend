@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from ..actividadEconomica.models import Producto, Servicio
 
@@ -21,7 +22,7 @@ class UnidadMedidaEnum(models.TextChoices):
 
 
 class DetalleIngreso(models.Model):
-    fecha_creacion = models.DateField()
+    fecha_creacion = models.DateField(default=date.today)
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
     monto_detalle = models.DecimalField(max_digits=12, decimal_places=2)
     unidad_medida = models.CharField(

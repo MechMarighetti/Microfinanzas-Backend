@@ -1,12 +1,13 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
-
+from django.http.request import HttpRequest
 from django.contrib import messages
 from django.db import IntegrityError
 from django.utils.decorators import method_decorator
 from .models import DetalleIngreso
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .mixins import PreviousPageMixin
 
 class DetalleIngresoLista(LoginRequiredMixin,ListView): 
     model = DetalleIngreso
@@ -56,3 +57,12 @@ class DetalleIngresoCreate(LoginRequiredMixin,CreateView):
     success_url = reverse_lazy('detalleIngresoList')
 
 
+class DetalleIngresoDetailView(PreviousPageMixin, LoginRequiredMixin, DetailView):
+    model = DetalleIngreso
+    template_name = 'detalleIngreso_detail.html'
+    context_object_name = 'detalleIngreso'
+    pk_url_kwarg = 'id'
+
+    def get_queryset(self):
+        # Asegurar que solo pueda ver detalles de ingresos de sus emprendimientos
+        return super().get_queryset()

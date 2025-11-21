@@ -38,12 +38,11 @@
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
-                        {% if user.rol == 'owner' %}
-                        <a href="#" class="btn btn-outline-primary">Editar Emprendimiento</a>
+                        {% if emprendimiento.usuario == request.user %}
+                        <a href="{%url 'transaccion_create'%}" class="btn btn-outline-primary">Agregar Transaccion</a>
                         {% endif %}
                         <a href="{% url 'detalleIngresoList' %}" class="btn btn-outline-primary">Ver los Detalles de Ingreso</a>
-                        <a href="{% url 'crear_detIngreso' %}" class="btn btn-outline-primary">Agregar Detalle de Ingresos</a>
-                        <a href="#" class="btn btn-outline-success">Ver Reportes</a>
+                        <a href="{% url 'crear_detIngreso' %}" class="btn btn-outline-success">Agregar Detalle de Ingresos</a>
                     </div>
                 </div>
             </div>

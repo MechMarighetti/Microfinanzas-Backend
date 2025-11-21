@@ -26,7 +26,7 @@ class EmprendimientoListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Emprendimiento.objects.all()
-        ##return Emprendimiento.objects.filter(usuario=self.request.user).order_by('nombre')
+        #return Emprendimiento.objects.filter(usuario=self.request.user).order_by('nombre')
 
 class EmprendimientoDetailView(LoginRequiredMixin, DetailView):
     model = Emprendimiento
