@@ -1,0 +1,22 @@
+{% extends 'base.html'%}  
+{%load static%}
+{%block title%}Transacciones{%endblock%}
+{%block content%}
+
+  <div class="card-body">
+                    <div class="d-grid gap-2">
+        
+                        <a href="{% url 'transaccion_list' %}" class="btn btn-outline-primary">Ver las transacciones</a>
+                        <a href="{% url 'transaccion_create' %}" class="btn btn-outline-primary">Crear transacciones</a>
+
+                    </div>
+                </div>
+            
+    <ul>
+        {% for tr in transaccion %}
+            <li><a href="{% url 'transaccion_details' tr.id %}">{{tr.id}}</a> {{ tr.descripcion }}</li>
+        {% empty %}
+            <li>No hay transacciones disponibles.</li>
+        {% endfor %}   
+    </ul>
+{%endblock%}

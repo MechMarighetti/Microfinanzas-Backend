@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Detalle de Ingresos</title>
-</head>
-<body>
-
-    <h1>Listado de Detalle de Ingresos</h1>
-
-    <!-- 🔍 FORMULARIO DE BÚSQUEDA -->
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Listado de Detalle de Ingresos{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Listado de Detalle de Ingresos</h3>
+                </div>
+<a href="{% url 'crear_detIngreso' %}" class="btn btn-outline-secondary">Nuevo Detalle de Ingreso</a>
+  
+<!-- 🔍 FORMULARIO DE BÚSQUEDA -->
     <form method="GET">
         <label for="fecha">Buscar por fecha exacta:</label>
-        <input type="date" name="fecha" id="fecha" value="{{ request.GET.fecha }}">
+        <input type="date" name="fecha_creacion" id="fecha_creacion" value="{{ request.GET.fecha_creacion }}">
 
         <br><br>
 
@@ -42,7 +45,7 @@
             <tbody>
                 {% for item in detalleIngresos %}
                 <tr>
-                    <td>{{ item.fecha }}</td>
+                    <td>{{ item.fecha_creacion }}</td>
                     <td>{{ item.unidad_medida }}</td>
                     <td>{{ item.cantidad }}</td>
                     <td>{{ item.monto }}</td>
@@ -61,6 +64,9 @@
         <h3>Último Detalle Ingreso:</h3>
         <p>{{ ultimoDetalleIngreso.fecha }} - {{ ultimoDetalleIngreso.monto }}</p>
     {% endif %}
+{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
 
-</body>
-</html>

@@ -90,21 +90,21 @@ class ServicioListView(LoginRequiredMixin, EmprendimientoMixin, ListView):
 
 class ServicioCreateView(LoginRequiredMixin, EmprendimientoMixin, CreateView):
     model = Servicio
-    template_name = 'actividadeconomica/servicio_form.html'
+    template_name = 'servicio_form.html'
     fields = ['descripcion', 'categoria', 'horas']
     success_url = reverse_lazy('servicio_list')
     success_message = 'Servicio creado exitosamente.'
 
 class ServicioUpdateView(LoginRequiredMixin, EmprendimientoMixin, UpdateView):
     model = Servicio
-    template_name = 'actividadeconomica/servicio_form.html'
+    template_name = 'servicio_form.html'
     fields = ['descripcion', 'categoria', 'horas']
     success_url = reverse_lazy('servicio_list')
     success_message = 'Servicio actualizado exitosamente.'
 
 class ServicioDeleteView(LoginRequiredMixin, EmprendimientoMixin, DeleteView):
     model = Servicio
-    template_name = 'actividadeconomica/servicio_confirm_delete.html'
+    template_name = 'servicio_confirm_delete.html'
     success_url = reverse_lazy('servicio_list')
     
     def delete(self, request, *args, **kwargs):

@@ -68,7 +68,7 @@ class CrearComprobanteView(View):
             )
             
             messages.success(request, f'Comprobante {comprobante.numero} creado exitosamente!')
-            return redirect('index')
+            return redirect('transaccion_create')
             
         except IntegrityError:
             messages.error(request, 'Ya existe un comprobante con ese número.')
