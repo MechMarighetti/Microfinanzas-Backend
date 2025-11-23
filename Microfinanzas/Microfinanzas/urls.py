@@ -25,5 +25,5 @@ urlpatterns = [
     path('comercial/', include('apps.actividadEconomica.urls')),
     path('', include('apps.emprendimiento.urls')),
     path('usuario/', include('apps.usuario.urls')),
-    path('detIngresos/', include('apps.detalleIngreso.urls')), 
+    path('detIngresos/', include('apps.detalleIngreso.urls')),
     ]
