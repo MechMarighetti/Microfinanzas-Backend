@@ -120,7 +120,7 @@ class ServicioDetailView(LoginRequiredMixin, EmprendimientoMixin, DetailView):
 
 class ProductoListView(LoginRequiredMixin, EmprendimientoMixin, ListView):
     model = Producto
-    template_name = 'actividadeconomica/producto_list.html'
+    template_name = 'producto_list.html'
     context_object_name = 'productos'
     paginate_by = 10
     
