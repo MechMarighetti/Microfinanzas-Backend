@@ -74,11 +74,11 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    {{ form.monto|add_class:"form-control" }}
+                                    {{ form.monto_detalle|add_class:"form-control" }}
                                 </div>
-                                {% if form.monto.errors %}
+                                {% if form.monto_detalle.errors %}
                                 <div class="invalid-feedback d-block">
-                                    {{ form.monto.errors.0 }}
+                                    {{ form.monto_detalle.errors.0 }}
                                 </div>
                                 {% endif %}
                             </div>
@@ -128,7 +128,7 @@
                             <!-- Botones de acción -->
                             <div class="d-flex justify-content-between mt-4">
                                 <div class="card">
-                                    <a href="{% url 'transaccion_create' %}" class="btn btn-secondary">
+                                    <a href="{{ previous_page }}" class="btn btn-secondary">
                                         <i class="fas fa-arrow-left"></i> Cancelar
                                     </a>
                                 </div>
