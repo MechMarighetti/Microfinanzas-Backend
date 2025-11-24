@@ -6,12 +6,13 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 from django.contrib import messages
 from .mixins import EmprendimientoMixin
+from ..mixins import PreviousPageMixin
 
 """ VISTAS DE CATEGORIA """
 
-class CategoriaListView(LoginRequiredMixin, ListView):
+class CategoriaListView(LoginRequiredMixin, PreviousPageMixin, ListView):
     model = Categoria
-    template_name = 'actividadeconomica/categoria_list.html'
+    template_name = 'categoria_list.html'
     context_object_name = 'categorias'
     paginate_by = 10
     
@@ -26,9 +27,9 @@ class CategoriaListView(LoginRequiredMixin, ListView):
             )
         return queryset.order_by('nombre')
 
-class CategoriaCreateView(LoginRequiredMixin, CreateView):
+class CategoriaCreateView(LoginRequiredMixin, PreviousPageMixin, CreateView):
     model = Categoria
-    template_name = 'actividadeconomica/categoria_form.html'
+    template_name = 'categoria_form.html'
     fields = ['nombre', 'descripcion']
     success_url = reverse_lazy('categoria_list')
     
@@ -36,6 +37,7 @@ class CategoriaCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, 'Categoría creada exitosamente.')
         return super().form_valid(form)
 
+'''
 class CategoriaUpdateView(LoginRequiredMixin, UpdateView):
     model = Categoria
     template_name = 'actividadeconomica/categoria_form.html'
@@ -54,17 +56,18 @@ class CategoriaDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, 'Categoría eliminada exitosamente.')
         return super().delete(request, *args, **kwargs)
+'''
 
-class CategoriaDetailView(LoginRequiredMixin, DetailView):
+class CategoriaDetailView(LoginRequiredMixin, PreviousPageMixin, DetailView):
     model = Categoria
-    template_name = 'actividadeconomica/categoria_detail.html'
+    template_name = 'categoria_detail.html'
     context_object_name = 'categoria'
 
 """ VISTAS DE SERVICIO """
 
-class ServicioListView(LoginRequiredMixin, EmprendimientoMixin, ListView):
+class ServicioListView(LoginRequiredMixin, PreviousPageMixin, EmprendimientoMixin, ListView):
     model = Servicio
-    template_name = 'actividadeconomica/servicio_list.html'
+    template_name = 'servicio_list.html'
     context_object_name = 'servicios'
     paginate_by = 10
     
@@ -88,13 +91,20 @@ class ServicioListView(LoginRequiredMixin, EmprendimientoMixin, ListView):
         context['categorias'] = Categoria.objects.all()
         return context
 
-class ServicioCreateView(LoginRequiredMixin, EmprendimientoMixin, CreateView):
+class ServicioCreateView(LoginRequiredMixin, PreviousPageMixin, EmprendimientoMixin, CreateView):
     model = Servicio
     template_name = 'servicio_form.html'
     fields = ['descripcion', 'categoria', 'horas']
     success_url = reverse_lazy('servicio_list')
     success_message = 'Servicio creado exitosamente.'
 
+    def form_valid(self, form):
+        # Asigna automáticamente el emprendimiento
+        emprendimiento = self.get_emprendimiento_user()
+        form.instance.emprendimiento = emprendimiento
+        return super().form_valid(form)
+
+'''
 class ServicioUpdateView(LoginRequiredMixin, EmprendimientoMixin, UpdateView):
     model = Servicio
     template_name = 'servicio_form.html'
@@ -110,15 +120,16 @@ class ServicioDeleteView(LoginRequiredMixin, EmprendimientoMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, 'Servicio eliminado exitosamente.')
         return super().delete(request, *args, **kwargs)
+'''
 
-class ServicioDetailView(LoginRequiredMixin, EmprendimientoMixin, DetailView):
+class ServicioDetailView(LoginRequiredMixin, PreviousPageMixin, EmprendimientoMixin, DetailView):
     model = Servicio
-    template_name = 'actividadeconomica/servicio_detail.html'
+    template_name = 'servicio_detail.html'
     context_object_name = 'servicio'
 
 """ VISTAS DE PRODUCTO """
 
-class ProductoListView(LoginRequiredMixin, EmprendimientoMixin, ListView):
+class ProductoListView(LoginRequiredMixin, PreviousPageMixin, EmprendimientoMixin, ListView):
     model = Producto
     template_name = 'producto_list.html'
     context_object_name = 'productos'
@@ -149,13 +160,14 @@ class ProductoListView(LoginRequiredMixin, EmprendimientoMixin, ListView):
         context['categorias'] = Categoria.objects.all()
         return context
 
-class ProductoCreateView(LoginRequiredMixin, EmprendimientoMixin, CreateView):
+class ProductoCreateView(LoginRequiredMixin, PreviousPageMixin, EmprendimientoMixin, CreateView):
     model = Producto
     template_name = 'producto_form.html'
     fields = ['descripcion', 'categoria', 'cantidad']
     success_url = reverse_lazy('producto_list')
     success_message = 'Producto creado exitosamente.'
 
+'''
 class ProductoUpdateView(LoginRequiredMixin, EmprendimientoMixin, UpdateView):
     model = Producto
     template_name = 'actividadeconomica/producto_form.html'
@@ -171,8 +183,9 @@ class ProductoDeleteView(LoginRequiredMixin, EmprendimientoMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, 'Producto eliminado exitosamente.')
         return super().delete(request, *args, **kwargs)
+'''
 
-class ProductoDetailView(LoginRequiredMixin, EmprendimientoMixin, DetailView):
+class ProductoDetailView(LoginRequiredMixin, PreviousPageMixin, EmprendimientoMixin, DetailView):
     model = Producto
-    template_name = 'actividadeconomica/producto_detail.html'
+    template_name = 'producto_detail.html'
     context_object_name = 'producto'

@@ -33,3 +33,9 @@ class EmprendimientoListView(LoginRequiredMixin, ListView):
 class EmprendimientoDetailView(LoginRequiredMixin, DetailView):
     model = Emprendimiento
     template_name = 'emprendimiento_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        # Guardar el emprendimiento activo en la sesión
+        emprendimiento = self.get_object()
+        request.session['emprendimiento_activo_id'] = emprendimiento.id
+        return super().get(request, *args, **kwargs)
