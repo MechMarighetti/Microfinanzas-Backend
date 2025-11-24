@@ -1,9 +1,21 @@
-from django.urls import reverse
+#from django.urls import reverse
 
 class PreviousPageMixin:
-    """Mixin para manejar la navegación de retorno"""
-    
-    def get_previous_page(self, default_view_name=None):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        referer = self.request.META.get('HTTP_REFERER')
+        
+        # Solo usa el referer si existe y no es la página actual
+        if referer and referer != self.request.build_absolute_uri():
+            context['previous_page'] = referer
+        else:
+            context['previous_page'] = None
+            
+        return context
+        
+
+    '''def get_previous_page(self, default_view_name=None):
         """
         Obtiene la URL anterior de forma segura
         """
@@ -28,3 +40,4 @@ class PreviousPageMixin:
         context = super().get_context_data(**kwargs)
         context['return_url'] = self.get_previous_page()
         return context
+        '''
