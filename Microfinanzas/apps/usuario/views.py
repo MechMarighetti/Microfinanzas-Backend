@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django import forms
 from .models import Usuario
+from ..mixins import PreviousPageMixin
 
 class CustomLoginView(LoginView):
     template_name = 'login.html'
@@ -33,7 +34,7 @@ class RegisterForm(UserCreationForm):
             "cuit",
         ]
 
-class RegisterView(CreateView):
+class RegisterView(PreviousPageMixin, CreateView):
     model = Usuario
     form_class = RegisterForm
     template_name = 'register.html'

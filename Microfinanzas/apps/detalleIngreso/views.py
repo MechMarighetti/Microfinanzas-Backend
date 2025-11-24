@@ -1,13 +1,12 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
-from django.http.request import HttpRequest
 from django.contrib import messages
 from django.db import IntegrityError
 from django.utils.decorators import method_decorator
 from .models import DetalleIngreso
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .mixins import PreviousPageMixin
+from ..mixins import PreviousPageMixin
 
 class DetalleIngresoLista(LoginRequiredMixin,ListView): 
     model = DetalleIngreso
@@ -50,14 +49,14 @@ class DetalleIngresoLista(LoginRequiredMixin,ListView):
 
         return context
     
-class DetalleIngresoCreate(LoginRequiredMixin,CreateView):
+class DetalleIngresoCreate(LoginRequiredMixin,PreviousPageMixin,CreateView):
     model = DetalleIngreso
     template_name = 'detalleIngreso_form.html'
     fields = ['fecha_creacion','monto_detalle', 'cantidad', 'unidad_medida']
     success_url = reverse_lazy('detalleIngresoList')
+    
 
-
-class DetalleIngresoDetailView(PreviousPageMixin, LoginRequiredMixin, DetailView):
+class DetalleIngresoDetailView(LoginRequiredMixin, DetailView):
     model = DetalleIngreso
     template_name = 'detalleIngreso_detail.html'
     context_object_name = 'detalleIngreso'

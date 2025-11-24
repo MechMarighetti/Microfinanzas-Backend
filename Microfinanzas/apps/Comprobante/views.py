@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib import messages
 from django.db import IntegrityError
 from django.utils.decorators import method_decorator
 from .models import Comprobante, MedioPagoEnum, TipoComprobanteEnum
 from django.contrib.auth.mixins import LoginRequiredMixin
+from ..mixins import PreviousPageMixin
 
 
 """Vista convertida de funcion a clase"""
-class IndexView(ListView): 
+class IndexView(LoginRequiredMixin, PreviousPageMixin, ListView): 
     model = Comprobante
     template_name = 'index.html'
     context_object_name = 'comprobantes'
@@ -25,17 +26,24 @@ class IndexView(ListView):
         return context
     
 
-class CrearComprobanteView(View):
+class CrearComprobanteView(LoginRequiredMixin, PreviousPageMixin, TemplateView):
+    template_name = 'crear_comprobante.html'
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'TipoComprobanteEnum': TipoComprobanteEnum,
+            'MedioPagoEnum': MedioPagoEnum
+        })
+        return context
     
-    def get(self, request):
-        
-    
+    '''def get(self, request):
         context = {
             'TipoComprobanteEnum': TipoComprobanteEnum,
             'MedioPagoEnum': MedioPagoEnum
         }
         return render(request, 'crear_comprobante.html', context)
+    '''
     
     def post(self, request):
         try:
@@ -77,6 +85,7 @@ class CrearComprobanteView(View):
             messages.error(request, f'Error al crear el comprobante: {str(e)}')
             return self._render_form_with_context()
     
+    '''
     def _render_form_with_context(self):
         """Método helper para renderizar el formulario con el contexto"""
         context = {
@@ -84,9 +93,9 @@ class CrearComprobanteView(View):
             'MedioPagoEnum': MedioPagoEnum
         }
         return render(self.request, 'crear_comprobante.html', context)
+    '''
 
-
-class DetalleComprobanteView(DetailView):
+class DetalleComprobanteView(LoginRequiredMixin, PreviousPageMixin, DetailView):
     model = Comprobante
     template_name = 'detalle_comprobante.html'
     context_object_name = 'comprobante'

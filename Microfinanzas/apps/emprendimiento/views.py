@@ -6,7 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 
-class EmprendimientoCreateView(LoginRequiredMixin, CreateView):
+from ..mixins import PreviousPageMixin
+
+class EmprendimientoCreateView(LoginRequiredMixin, PreviousPageMixin, CreateView):
     model = Emprendimiento
     template_name = 'emprendimiento_form.html'
     fields = ['nombre', 'descripcion'] 

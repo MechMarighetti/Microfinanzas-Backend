@@ -48,7 +48,7 @@
                     <td>{{ item.fecha_creacion }}</td>
                     <td>{{ item.unidad_medida }}</td>
                     <td>{{ item.cantidad }}</td>
-                    <td>{{ item.monto }}</td>
+                    <td>{{ item.monto_detalle }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -62,7 +62,7 @@
     <!-- 📌 MOSTRAR ÚLTIMO REGISTRO -->
     {% if ultimoDetalleIngreso %}
         <h3>Último Detalle Ingreso:</h3>
-        <p>{{ ultimoDetalleIngreso.fecha }} - {{ ultimoDetalleIngreso.monto }}</p>
+        <p>{{ ultimoDetalleIngreso.fecha_creacion }} - {{ ultimoDetalleIngreso.monto_detalle }}</p>
     {% endif %}
 {% endblock %}
             </div>

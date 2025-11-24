@@ -9,7 +9,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title mb-0">Detalle de Transacción #{{ transaccion.id }}</h4>
-                        <a href="{% url 'transaccion_list' %}" class="btn btn-secondary btn-sm">
+                        <a href="{{ previous_page }}" class="btn btn-secondary btn-sm">
                             <i class="fas fa-arrow-left"></i> Volver
                         </a>
                     </div>

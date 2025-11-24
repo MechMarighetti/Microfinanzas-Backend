@@ -31,7 +31,6 @@
         </div>
         
         <div class="col-md-4">
-            <!-- Aquí puedes agregar información adicional o estadísticas -->
             <div class="card">
                 <div class="card-header">
                     <h6>Acciones Rápidas</h6>
@@ -43,6 +42,8 @@
                         {% endif %}
                         <a href="{% url 'detalleIngresoList' %}" class="btn btn-outline-primary">Ver los Detalles de Ingreso</a>
                         <a href="{% url 'crear_detIngreso' %}" class="btn btn-outline-success">Agregar Detalle de Ingresos</a>
+                        <a href="{% url 'transaccion_list' %}" class="btn btn-outline-success">Ver Lista de Transacciones</a>
+                        <a href="{% url 'index' %}" class="btn btn-outline-success">Ver Lista de Comprobantes</a>
                     </div>
                 </div>
             </div>
