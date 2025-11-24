@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Detalle categoría {{categoria.id}}{% endblock %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle categoria</title>
+</head>
+<body>
+    <a href="{% url 'categoria_create' %}">Crear Categoria</a>
+
+    Detalle la categoria:
+    <ul>
+        <li>{{categoria.nombre}}</li>
+        <li>Descripción: {{ categoria.descripcion }}</li>
+    </ul>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a href="{{ previous_page }}" class="btn btn-secondary me-md-2">Volver</a>
+    </div>
+</body>
+</html>
+{% endblock %}
