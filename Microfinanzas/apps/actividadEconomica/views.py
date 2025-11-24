@@ -120,7 +120,7 @@ class ServicioDetailView(LoginRequiredMixin, EmprendimientoMixin, DetailView):
 
 class ProductoListView(LoginRequiredMixin, EmprendimientoMixin, ListView):
     model = Producto
-    template_name = 'actividadeconomica/producto_list.html'
+    template_name = 'producto_list.html'
     context_object_name = 'productos'
     paginate_by = 10
     
@@ -151,7 +151,7 @@ class ProductoListView(LoginRequiredMixin, EmprendimientoMixin, ListView):
 
 class ProductoCreateView(LoginRequiredMixin, EmprendimientoMixin, CreateView):
     model = Producto
-    template_name = 'actividadeconomica/producto_form.html'
+    template_name = 'producto_form.html'
     fields = ['descripcion', 'categoria', 'cantidad']
     success_url = reverse_lazy('producto_list')
     success_message = 'Producto creado exitosamente.'

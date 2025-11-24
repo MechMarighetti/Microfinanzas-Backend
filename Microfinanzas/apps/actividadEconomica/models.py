@@ -23,9 +23,9 @@ class Servicio(models.Model):
 class Producto(models.Model):
     descripcion = models.TextField(max_length=100)
     fecha_creacion = models.DateField(auto_now_add=True)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos')
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos', null=True, blank=True)
     cantidad = models.IntegerField(default=0)
-    emprendimiento = models.ForeignKey(Emprendimiento, on_delete=models.CASCADE, related_name='productos')
+    emprendimiento = models.ForeignKey(Emprendimiento, on_delete=models.CASCADE, related_name='productos', null=True, blank=True)
 
     def __str__(self):
         return self.descripcion, self.cantidad
